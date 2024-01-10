@@ -61,4 +61,5 @@ function calculate(nums, ops) {
     }
     value = val
     document.querySelector(".out").innerHTML = val
+    numbers = []
 }
