@@ -1,8 +1,8 @@
 value = ""
 let isFloat = false
+let operators = [];
+let numbers = [];
 function add(startValue) {
-    let operators = [];
-    let numbers = [];
     if (typeof startValue == "number") {
         value += startValue;
         document.querySelector(".out").innerHTML = value;
@@ -11,6 +11,7 @@ function add(startValue) {
         switch (startValue) {
             case "clear":
                 value = "";
+                numbers = []
                 document.querySelector(".out").innerHTML = value;
                 break;
             case ".":
@@ -22,6 +23,8 @@ function add(startValue) {
             case "=":
                 numbers.push(value);
                 calculate(numbers, operators)
+                numbers = []
+                operators = []
                 break;
             default:
                 numbers.push(value);
@@ -33,30 +36,29 @@ function add(startValue) {
     }
 }
 function calculate(nums, ops) {
-    if (isFloat == true){
-        for (let index = 0; index < nums.length; index++) {
-            nums[i] = parseFloat(nums[index]);
-        }
+    let val = Number(nums[0])
+    if (isFloat) {
+        val = parseFloat(val)
     }
-    value = nums[0]
+    console.log(nums)
     for (let i = 1; i < nums.length; i++) {
         switch (ops[i-1]) {
             case "+":
-                value += nums[i];
+                val += Number(nums[i]);
                 break
             case "-":
-                value -= nums[i];
+                val -= Number(nums[i]);
                 break;
             case "*":
-                value *= nums[i];
+                val *= Number(nums[i]);
                 break;
             case "/":
-                value /= nums[i];
+                val /= Number(nums[i]);
                 break;
             default:
                 break;
         }
     }
-    console.log(value)
-    document.querySelector(".out").innerHTML = value;
+    value = val
+    document.querySelector(".out").innerHTML = val
 }
